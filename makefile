@@ -28,14 +28,16 @@ target/src/GenerateXML.java: target/src
 	cp src/resources/GenerateXML.java $@
 
 target/build/GenerateXML.class: target/build target/xstream-1.4.9/lib/xstream-1.4.9.jar target/src/GenerateXML.java target/src/com/support/bonitasoft/autogen/TestC.java
-	javac -d target/build -sourcepath target/src -cp target/xstream-1.4.9/lib/xstream-1.4.9.jar -J-Xmx4096m target/src/com/support/bonitasoft/*/*.java target/src/*.java
+	javac -d target/build -sourcepath target/src -cp target/xstream-1.4.9/lib/xstream-1.4.9.jar target/src/com/support/bonitasoft/*/*.java target/src/*.java
+#	javac -d target/build -sourcepath target/src -cp target/xstream-1.4.9/lib/xstream-1.4.9.jar -Xmx4096m target/src/com/support/bonitasoft/*/*.java target/src/*.java
 	
 target/test-classes-$(NUMBER_OF_CLASSES)-$(NUMBER_OF_METHODS_PER_CLASS).jar: target/build/GenerateXML.class
 	jar cf target/test-classes-$(NUMBER_OF_CLASSES)-$(NUMBER_OF_METHODS_PER_CLASS).jar -C target/build .
 
 target/inputObject.xml: target/test-classes-$(NUMBER_OF_CLASSES)-$(NUMBER_OF_METHODS_PER_CLASS).jar target/xstream-1.4.9/lib/xstream-1.4.9.jar
 	cd target &&\
-		java -Xmx2048m -XX:MaxPermSize=1024m -classpath test-classes-$(NUMBER_OF_CLASSES)-$(NUMBER_OF_METHODS_PER_CLASS).jar:xstream-1.4.9/lib/xstream-1.4.9.jar:xstream-1.4.9/lib/xstream/* GenerateXML
+		java -classpath test-classes-$(NUMBER_OF_CLASSES)-$(NUMBER_OF_METHODS_PER_CLASS).jar:xstream-1.4.9/lib/xstream-1.4.9.jar:xstream-1.4.9/lib/xstream/* GenerateXML
+#java -Xmx2048m -XX:MaxPermSize=1024m -classpath test-classes-$(NUMBER_OF_CLASSES)-$(NUMBER_OF_METHODS_PER_CLASS).jar:xstream-1.4.9/lib/xstream-1.4.9.jar:xstream-1.4.9/lib/xstream/* GenerateXML
 
 clean:
 	-rm -rf target
