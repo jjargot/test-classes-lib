@@ -2,7 +2,7 @@
 Generate a lib containing any specified number of classes with any specified number of methods
 
 ## Download
-    # git clone https://github.com/jjargot/dashboard
+    # git clone https://github.com/jjargot/test-classes-lib
 
 ## Edit makefile to set the number of classes to generate and the number of methods per class
     # vi makefile
